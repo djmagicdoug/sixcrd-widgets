@@ -16,7 +16,7 @@
   var CSS =
     ".sixcrd-hours,.sixcrd-hours *{box-sizing:border-box !important;}" +
     ".sixcrd-hours{display:block !important;width:100% !important;margin:0 !important;padding:0 !important;" +
-    "background:#f8f4e9 !important;border:1px solid #e8dfca !important;border-radius:10px !important;overflow:hidden !important;" +
+    "background:#E8F6F7 !important;border:1px solid #c9e3e5 !important;border-radius:10px !important;overflow:hidden !important;" +
     "font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif !important;color:#2b2a26 !important;" +
     "text-align:left !important;line-height:1.3 !important;}" +
     ".sixcrd-hours .sxh-bar{display:flex !important;align-items:center !important;gap:10px !important;width:100% !important;" +
@@ -32,7 +32,7 @@
     "transition:transform .2s ease !important;}" +
     ".sixcrd-hours.sxh-open .sxh-chev{transform:rotate(180deg) !important;}" +
     ".sixcrd-hours .sxh-week{list-style:none !important;margin:0 !important;padding:4px 14px 12px !important;" +
-    "border-top:1px solid #e8dfca !important;}" +
+    "border-top:1px solid #c9e3e5 !important;}" +
     ".sixcrd-hours .sxh-week[hidden]{display:none !important;}" +
     ".sixcrd-hours .sxh-row{display:flex !important;justify-content:space-between !important;gap:12px !important;" +
     "margin:0 !important;padding:6px 0 !important;font-size:14px !important;color:#2b2a26 !important;}" +
