@@ -89,7 +89,7 @@ window.PINCRD_PINS = [
     finePrint: "Free candle is the lowest priced of the three. In store only, while supplies last.",
     category: "retail", sub: "Gifts & Home", area: "Southwest",
     tags: ["Free With Purchase", "Limited Time"],
-    image: "ember-oak-candles.jpg", emoji: "🕯️",
+    image: "ember-oak-candle-co.jpg", emoji: "🕯️",
     phone: "7025550201", address: "8665 W Flamingo Rd, Las Vegas, NV",
     website: "https://example.com/",
     start: "2026-11-12", end: "2026-11-21"
@@ -136,7 +136,7 @@ window.PINCRD_PINS = [
     finePrint: "Southwest valley service area. Appointment required.",
     category: "services", sub: "Auto", area: "Southwest",
     tags: ["By Appt"],
-    image: "rolling-wrench.jpg", emoji: "🔧",
+    image: "rolling-wrench-mobile-mechanic.jpg", emoji: "🔧",
     phone: "7025550301",
     start: "2026-11-12", end: "2026-11-21"
   },
@@ -151,7 +151,7 @@ window.PINCRD_PINS = [
     finePrint: "New clients only. Appointment required.",
     category: "services", sub: "Hair & Beauty", area: "Southwest",
     tags: ["By Appt", "Limited Time"],
-    image: "glow-up-studio.jpg", emoji: "💇",
+    image: "glow-up-studio.webp", emoji: "💇",
     phone: "7025550302", address: "3655 S Durango Dr, Las Vegas, NV",
     action: { label: "Book Now", url: "https://example.com/book" },
     start: "2026-11-12", end: "2026-11-21"
@@ -167,7 +167,7 @@ window.PINCRD_PINS = [
     finePrint: "Orders over $30. Henderson service area only.",
     category: "services", sub: "Home & Errands", area: "Henderson Green Valley",
     tags: ["Free With Purchase", "Limited Time"],
-    image: "fresh-press.jpg", emoji: "👔",
+    image: "fresh-press-cleaners.jpg", emoji: "👔",
     phone: "7025550303", address: "1500 N Green Valley Pkwy, Henderson, NV",
     action: { label: "Schedule Pickup", url: "https://example.com/pickup" },
     start: "2026-11-12", end: "2026-11-21"
@@ -183,7 +183,7 @@ window.PINCRD_PINS = [
     finePrint: "First time visitors only. Must be 18 or older.",
     category: "services", sub: "Fitness", area: "Southwest",
     tags: ["Free", "By Appt"],
-    image: "iron-oasis.jpg", emoji: "🏋️",
+    image: "iron-oasis-fitness.jpg", emoji: "🏋️",
     phone: "7025550304", address: "7175 W Warm Springs Rd, Las Vegas, NV",
     action: { label: "Reserve", url: "https://example.com/classes" },
     start: "2026-11-12", end: "2026-11-21"
