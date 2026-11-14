@@ -17,7 +17,7 @@ body{font-family:Arial,Helvetica,sans-serif;color:#222;background:transparent}
 </head>
 <body>
 <div class="sfa-hours" role="status" aria-live="polite">
-  <div class="sfa-hours-top"><span class="sfa-hours-dot" id="dot"></span><span class="sfa-hours-label" id="label">Checking hours…</span></div>
+  <div class="sfa-hours-top"><span class="sfa-hours-dot" id="dot" aria-hidden="true"></span><span class="sfa-hours-label" id="label">Checking hours…</span></div>
   <div class="sfa-hours-detail" id="detail"></div>
 </div>
 <script>
@@ -30,6 +30,15 @@ var SETTINGS={
  hours:{sun:"closed",mon:"11:00-22:00",tue:"11:00-22:00",wed:"11:00-22:00",thu:"11:00-22:00",fri:"11:00-1:00",sat:"11:00-1:00"}
 };
 var KEYS=["sun","mon","tue","wed","thu","fri","sat"];
+(function readParams(){
+ var q;
+ try{q=new URLSearchParams(window.location.search)}catch(e){return}
+ var tz=q.get("tz");
+ if(tz){try{new Intl.DateTimeFormat("en-US",{timeZone:tz});SETTINGS.timezone=tz}catch(e){}}
+ var any=KEYS.some(function(k){return q.has(k)});
+ if(!any)return;
+ KEYS.forEach(function(k){SETTINGS.hours[k]=q.has(k)?q.get(k):"closed"});
+})();
 var NAMES=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 function zonedNow(){
  var parts=new Intl.DateTimeFormat("en-US",{timeZone:SETTINGS.timezone,weekday:"short",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date());
@@ -74,9 +83,13 @@ function status(){
  }
  return {state:"closed",label:"Closed",detail:nextOpening(now)};
 }
+var last="";
 function paint(){
  try{
   var s=status(),color=SETTINGS.colors[s.state];
+  var key=s.state+"|"+s.label+"|"+s.detail;
+  if(key===last)return;
+  last=key;
   document.getElementById("dot").style.backgroundColor=color;
   var label=document.getElementById("label");label.textContent=s.label;label.style.color=color;
   document.getElementById("detail").textContent=s.detail;
@@ -86,6 +99,7 @@ function paint(){
  }
 }
 paint();setInterval(paint,30000);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)paint()});
 })();
 </script>
 </body>
