@@ -3,62 +3,89 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PinCard Business Hours</title>
+<title>SixCRD Business Hours</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font:14px/1.5 Arial,Helvetica,sans-serif;color:#29485a;background:transparent}
-.card{border:1px solid #d4e8e2;background:#edf7f5;border-radius:12px;padding:14px 16px;box-shadow:0 3px 9px rgba(23,54,93,.06)}
-.card.closed{background:#fff3f0;border-color:#f0d4cb}.status{font-size:15px;font-weight:800;color:#267653}.closed .status{color:#a63e32}
-.message{font-size:13px;color:#58716b;margin-top:4px}details{margin-top:12px;border-top:1px solid #d4e8e2;padding-top:9px}summary{font-size:12px;font-weight:700;color:#17365d;cursor:pointer}
-.hours{font-size:12px;color:#465f70;margin-top:8px;line-height:1.8}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;color:#222;background:transparent}
+.sfa-hours{background:#f8f4e9;border:1px solid #e8dfca;border-radius:9px;padding:12px 14px;min-height:66px}
+.sfa-hours-top{display:flex;align-items:center;gap:8px;line-height:1.2}
+.sfa-hours-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%}
+.sfa-hours-label{font-size:15px;font-weight:700}
+.sfa-hours-detail{padding-left:17px;margin-top:4px;font-size:13px;color:#666;line-height:1.3}
 </style>
 </head>
 <body>
-<section class="card" id="card" aria-label="Business hours">
-<div class="status" id="status" role="status" aria-live="polite">Checking hours…</div>
-<div class="message" id="message"></div>
-<details id="weekly"><summary>View Weekly Hours</summary><div class="hours">
-<div>Monday–Thursday: 11:00 AM – 10:00 PM</div>
-<div>Friday–Saturday: 11:00 AM – 1:00 AM (next day)</div>
-<div>Sunday: Closed</div>
-</div></details>
-</section>
+<div class="sfa-hours" role="status" aria-live="polite">
+  <div class="sfa-hours-top"><span class="sfa-hours-dot" id="dot"></span><span class="sfa-hours-label" id="label">Checking hours…</span></div>
+  <div class="sfa-hours-detail" id="detail"></div>
+</div>
 <script>
 (function(){
 "use strict";
-var zone="America/Los_Angeles";
-var hours=[null,[11*60,22*60],[11*60,22*60],[11*60,22*60],[11*60,22*60],[11*60,25*60],[11*60,25*60]];
-var names=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-var card=document.getElementById("card"),status=document.getElementById("status"),message=document.getElementById("message");
-function localNow(){
-var parts=new Intl.DateTimeFormat("en-US",{timeZone:zone,weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date());
-var v={};parts.forEach(function(p){v[p.type]=p.value});
-return {day:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(v.weekday),minutes:Number(v.hour)*60+Number(v.minute)};
+var SETTINGS={
+ timezone:"America/Los_Angeles",
+ closesSoonMinutes:60,
+ colors:{open:"#1a7f37",soon:"#c77700",closed:"#9b1c1c"},
+ hours:{sun:"closed",mon:"11:00-22:00",tue:"11:00-22:00",wed:"11:00-22:00",thu:"11:00-22:00",fri:"11:00-1:00",sat:"11:00-1:00"}
+};
+var KEYS=["sun","mon","tue","wed","thu","fri","sat"];
+var NAMES=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+function zonedNow(){
+ var parts=new Intl.DateTimeFormat("en-US",{timeZone:SETTINGS.timezone,weekday:"short",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date());
+ var p={};parts.forEach(function(x){if(x.type!=="literal")p[x.type]=x.value});
+ var day={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday];
+ return {day:day,minutes:(parseInt(p.hour,10)%24)*60+parseInt(p.minute,10)};
 }
-function fmt(min){var h=Math.floor((min%1440)/60),m=min%60;return (h%12||12)+":"+String(m).padStart(2,"0")+" "+(h>=12?"PM":"AM")}
-function update(){
-try{
-var now=localNow(),day=now.day,t=now.minutes,prev=hours[(day+6)%7],today=hours[day],end=null,overnight=false;
-if(prev&&prev[1]>1440&&t<prev[1]-1440){end=prev[1]-1440}
-else if(today&&t>=today[0]&&t<Math.min(today[1],1440)){end=today[1];overnight=end>1440}
-if(end!==null){
-card.classList.remove("closed");status.textContent="● OPEN NOW";
-message.textContent="Closes "+(overnight?"tomorrow":"today")+" at "+fmt(end);
-}else{
-card.classList.add("closed");status.textContent="● CLOSED NOW";
-var next="";
-for(var offset=0;offset<=7;offset++){
-var d=(day+offset)%7,entry=hours[d];
-if(entry&&(offset>0||t<entry[0])){
-next="Opens "+(offset===0?"today":offset===1?"tomorrow":names[d])+" at "+fmt(entry[0]);break;
+function minutes(s){var p=s.split(":");return parseInt(p[0],10)*60+parseInt(p[1]||"0",10)}
+function pretty(m){var h=Math.floor(m/60)%24,mm=m%60;return (h%12||12)+":"+(mm<10?"0":"")+mm+" "+(h>=12?"PM":"AM")}
+function shifts(day){
+ var str=SETTINGS.hours[KEYS[day]];
+ if(!str||str.toLowerCase()==="closed")return [];
+ return str.split(",").map(function(r){var p=r.trim().split("-");return {open:minutes(p[0]),close:minutes(p[1])}}).filter(function(s){return Number.isFinite(s.open)&&Number.isFinite(s.close)});
 }
+function nextOpening(now){
+ for(var d=0;d<=7;d++){
+  var day=(now.day+d)%7,slots=shifts(day);
+  for(var i=0;i<slots.length;i++){
+   if(d>0||slots[i].open>now.minutes){
+    var when=d===0?"today":d===1?"tomorrow":NAMES[day];
+    return "Opens "+when+" at "+pretty(slots[i].open);
+   }
+  }
+ }
+ return "Hours unavailable";
 }
-message.textContent=next||"See weekly hours";
+function running(remaining,close){
+ var state=remaining<=SETTINGS.closesSoonMinutes?"soon":"open";
+ return {state:state,label:state==="soon"?"Closes soon":"Open now",detail:"Closes at "+pretty(close)};
 }
-}catch(e){status.textContent="Business hours";message.textContent="See weekly hours below"}
+function status(){
+ var now=zonedNow(),previous=shifts((now.day+6)%7);
+ for(var i=0;i<previous.length;i++){
+  var y=previous[i];
+  if(y.close<=y.open&&now.minutes<y.close)return running(y.close-now.minutes,y.close);
+ }
+ var today=shifts(now.day);
+ for(var j=0;j<today.length;j++){
+  var s=today[j];
+  if(s.close<=s.open&&now.minutes>=s.open)return running(1440-now.minutes+s.close,s.close);
+  if(s.close>s.open&&now.minutes>=s.open&&now.minutes<s.close)return running(s.close-now.minutes,s.close);
+ }
+ return {state:"closed",label:"Closed",detail:nextOpening(now)};
 }
-update();setInterval(update,30000);
-function notifyHeight(){try{parent.postMessage({type:"sixcrd-widget-height",height:document.documentElement.scrollHeight},"*")}catch(e){}}
-document.getElementById("weekly").addEventListener("toggle",notifyHeight);setTimeout(notifyHeight,100);
+function paint(){
+ try{
+  var s=status(),color=SETTINGS.colors[s.state];
+  document.getElementById("dot").style.backgroundColor=color;
+  var label=document.getElementById("label");label.textContent=s.label;label.style.color=color;
+  document.getElementById("detail").textContent=s.detail;
+ }catch(e){
+  document.getElementById("label").textContent="Hours unavailable";
+  document.getElementById("detail").textContent="";
+ }
+}
+paint();setInterval(paint,30000);
 })();
 </script>
 </body>
