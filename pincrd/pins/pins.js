@@ -22,6 +22,7 @@
 
   var CSS = [
     ".pcp,.pcp *{box-sizing:border-box}",
+    ".pcp [hidden],.pcp-dialog [hidden]{display:none !important}",
     ".pcp{max-width:560px;margin:0 auto;padding:16px 14px 28px;color:#303536;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;text-align:left}",
     ".pcp h1{font-size:24px;margin:0 0 4px;color:#303536}",
     ".pcp .pcp-intro{font-size:13.5px;line-height:1.45;color:#5e6466;margin:0 0 14px}",
