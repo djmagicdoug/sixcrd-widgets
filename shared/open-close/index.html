@@ -1,1 +1,65 @@
-<!-- Open/Close Widget -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PinCard Business Hours</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 Arial,Helvetica,sans-serif;color:#29485a;background:transparent}
+.card{border:1px solid #d4e8e2;background:#edf7f5;border-radius:12px;padding:14px 16px;box-shadow:0 3px 9px rgba(23,54,93,.06)}
+.card.closed{background:#fff3f0;border-color:#f0d4cb}.status{font-size:15px;font-weight:800;color:#267653}.closed .status{color:#a63e32}
+.message{font-size:13px;color:#58716b;margin-top:4px}details{margin-top:12px;border-top:1px solid #d4e8e2;padding-top:9px}summary{font-size:12px;font-weight:700;color:#17365d;cursor:pointer}
+.hours{font-size:12px;color:#465f70;margin-top:8px;line-height:1.8}
+</style>
+</head>
+<body>
+<section class="card" id="card" aria-label="Business hours">
+<div class="status" id="status" role="status" aria-live="polite">Checking hours…</div>
+<div class="message" id="message"></div>
+<details id="weekly"><summary>View Weekly Hours</summary><div class="hours">
+<div>Monday–Thursday: 11:00 AM – 10:00 PM</div>
+<div>Friday–Saturday: 11:00 AM – 1:00 AM (next day)</div>
+<div>Sunday: Closed (except until 1:00 AM from Saturday)</div>
+</div></details>
+</section>
+<script>
+(function(){
+"use strict";
+var zone="America/Los_Angeles";
+var hours=[null,[11*60,22*60],[11*60,22*60],[11*60,22*60],[11*60,22*60],[11*60,25*60],[11*60,25*60]];
+var names=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var card=document.getElementById("card"),status=document.getElementById("status"),message=document.getElementById("message");
+function localNow(){
+var parts=new Intl.DateTimeFormat("en-US",{timeZone:zone,weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date());
+var v={};parts.forEach(function(p){v[p.type]=p.value});
+return {day:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(v.weekday),minutes:Number(v.hour)*60+Number(v.minute)};
+}
+function fmt(min){var h=Math.floor((min%1440)/60),m=min%60;return (h%12||12)+":"+String(m).padStart(2,"0")+" "+(h>=12?"PM":"AM")}
+function update(){
+try{
+var now=localNow(),day=now.day,t=now.minutes,prev=hours[(day+6)%7],today=hours[day],end=null,overnight=false;
+if(prev&&prev[1]>1440&&t<prev[1]-1440){end=prev[1]-1440}
+else if(today&&t>=today[0]&&t<Math.min(today[1],1440)){end=today[1];overnight=end>1440}
+if(end!==null){
+card.classList.remove("closed");status.textContent="● OPEN NOW";
+message.textContent="Closes "+(overnight?"tomorrow":"today")+" at "+fmt(end);
+}else{
+card.classList.add("closed");status.textContent="● CLOSED NOW";
+var next="";
+for(var offset=0;offset<=7;offset++){
+var d=(day+offset)%7,entry=hours[d];
+if(entry&&(offset>0||t<entry[0])){
+next="Opens "+(offset===0?"today":offset===1?"tomorrow":names[d])+" at "+fmt(entry[0]);break;
+}
+}
+message.textContent=next||"See weekly hours";
+}
+}catch(e){status.textContent="Business hours";message.textContent="See weekly hours below"}
+}
+update();setInterval(update,30000);
+function notifyHeight(){try{parent.postMessage({type:"sixcrd-widget-height",height:document.documentElement.scrollHeight},"*")}catch(e){}}
+document.getElementById("weekly").addEventListener("toggle",notifyHeight);setTimeout(notifyHeight,100);
+})();
+</script>
+</body>
+</html>
