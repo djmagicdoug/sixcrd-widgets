@@ -22,7 +22,7 @@
 
   var CSS = [
     ".pcp,.pcp *{box-sizing:border-box}",
-    ".pcp [hidden],.pcp-dialog [hidden]{display:none !important}",
+    ".pcp [hidden]{display:none !important}",
     ".pcp{max-width:1200px;margin:0 auto;padding:16px 14px 28px;color:#333333;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;text-align:left}",
     ".pcp h1{font-size:24px;margin:0 0 4px;color:#333333}",
     ".pcp .pcp-intro{font-size:13.5px;line-height:1.45;color:#666666;margin:0 0 14px}",
@@ -34,7 +34,7 @@
     ".pcp .pcp-chip[aria-pressed=true]{background:#29547E;color:#FFFFFF;border-color:#29547E}",
     ".pcp .pcp-row.pcp-sub .pcp-chip{font-weight:600;font-size:11.5px;padding:6px 11px}",
     ".pcp .pcp-row.pcp-sub .pcp-chip[aria-pressed=true]{background:#333333;border-color:#333333}",
-    ".pcp .pcp-chip:focus-visible,.pcp .pcp-card:focus-visible,.pcp-dialog button:focus-visible,.pcp-dialog a:focus-visible{outline:2px solid #29547E;outline-offset:2px}",
+    ".pcp .pcp-chip:focus-visible,.pcp .pcp-card:focus-visible{outline:2px solid #29547E;outline-offset:2px}",
     ".pcp .pcp-count{font-size:12px;color:#666666;margin:12px 0 10px}",
     ".pcp .pcp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}",
     "@media(min-width:700px){.pcp .pcp-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}.pcp .pcp-search{max-width:560px}}",
@@ -58,39 +58,51 @@
     ".pcp .pcp-disclaimer strong{color:#333333}",
     ".pcp .pcp-brand{font-size:11.5px;color:#666666;margin:0}",
     ".pcp .pcp-brand a{color:#29547E;font-weight:700;text-decoration:underline;text-underline-offset:2px}",
-    ".pcp-dialog{width:min(540px,calc(100% - 20px));max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0;border:0;border-radius:12px;box-shadow:0 16px 45px rgba(0,0,0,.25);color:#333333;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}",
-    ".pcp-dialog::backdrop{background:rgba(30,32,33,.55)}",
-    ".pcp-dialog .pcp-close{position:absolute;right:10px;top:10px;z-index:5;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.95);font-size:26px;line-height:1;cursor:pointer;color:#333333}",
-    ".pcp-dialog .pcp-media{aspect-ratio:auto;height:220px}",
-    ".pcp-dialog .pcp-emoji{font-size:56px}",
-    ".pcp-dialog .pcp-content{padding:16px 17px 20px}",
-    ".pcp-dialog h2{font-size:23px;line-height:1.15;margin:4px 0 6px}",
-    ".pcp-dialog h3{font-size:15.5px;margin:0 0 8px;color:#666666}",
-    ".pcp-dialog .pcp-about{color:#666666;font-size:14px;line-height:1.5;margin:0}",
-    ".pcp-dialog section{border-top:1px solid #DDDDDD;padding-top:14px;margin-top:16px}",
-    ".pcp-dialog .pcp-eyebrow{font-size:11px;color:#29547E;font-weight:850;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}",
-    ".pcp-dialog section p{font-size:14px;line-height:1.5;margin:0}",
-    ".pcp-dialog .pcp-fact{margin-top:12px}",
-    ".pcp-dialog .pcp-fact strong,.pcp-dialog .pcp-fact span{display:block;font-size:13.5px}",
-    ".pcp-dialog .pcp-fact span{color:#666666;margin-top:2px;line-height:1.45}",
-    ".pcp-dialog .pcp-contact{display:block;padding:10px 0;color:#333333;text-decoration:none;border-bottom:1px solid #DDDDDD}",
-    ".pcp-dialog .pcp-contact strong,.pcp-dialog .pcp-contact span{display:block}",
-    ".pcp-dialog .pcp-contact strong{font-size:14px}",
-    ".pcp-dialog .pcp-contact span{font-size:11.5px;color:#29547E;margin-top:2px}",
-    ".pcp-dialog .pcp-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}",
-    ".pcp-dialog .pcp-actions.pcp-one{grid-template-columns:1fr}",
-    ".pcp-dialog .pcp-btn{min-height:46px;display:flex;align-items:center;justify-content:center;border:1px solid #29547E;border-radius:6px;font-size:13px;font-weight:800;text-decoration:none;text-align:center;padding:6px 10px}",
-    ".pcp-dialog .pcp-primary{background:#29547E;color:#FFFFFF}",
-    ".pcp-dialog .pcp-secondary{background:#FFFFFF;color:#29547E}",
-    ".pcp-dialog .pcp-hero{position:relative}",
-    ".pcp-dialog .pcp-logo{position:absolute;left:17px;bottom:-34px;z-index:4;width:72px;height:72px;border-radius:14px;object-fit:contain;background:#FFFFFF;border:3px solid #FFFFFF;box-shadow:0 4px 14px rgba(0,0,0,.18)}",
-    ".pcp-dialog .pcp-content.pcp-logo-pad{padding-top:46px}",
-    ".pcp-dialog .pcp-socials{display:flex;gap:8px;margin:12px 0 0}",
-    ".pcp-dialog .pcp-social{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid #DDDDDD;color:#29547E;text-decoration:none}",
-    ".pcp-dialog .pcp-hours{margin:0 0 6px}",
-    ".pcp-dialog .pcp-share{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:42px;margin-top:10px;border:0;background:transparent;color:#29547E;font:inherit;font-size:13px;font-weight:800;cursor:pointer}",
-    ".pcp-dialog .pcp-shared{font-size:12px;color:#666666;text-align:center;margin:2px 0 0;word-break:break-all}",
-    ".pcp-dialog .pcp-note{font-size:11px;color:#666666;line-height:1.4;margin:16px 0 0;padding-bottom:calc(8px + env(safe-area-inset-bottom))}"
+    ".pcp-page{max-width:1000px;margin:0 auto}",
+    ".pcp-topbar{position:sticky;top:0;z-index:6;background:#FFFFFF;margin:-16px -14px 10px;padding:6px 10px;border-bottom:1px solid #DDDDDD}",
+    ".pcp-back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 6px;border:0;background:transparent;color:#29547E;font:inherit;font-size:14px;font-weight:800;cursor:pointer}",
+    ".pcp-back svg{flex:0 0 auto}",
+    ".pcp-pin{background:#FFFFFF;margin:0 -14px}",
+    ".pcp-pin .pcp-hero{position:relative}",
+    ".pcp-pin .pcp-media{aspect-ratio:16/10}",
+    ".pcp-pin .pcp-emoji{font-size:56px}",
+    ".pcp-pin .pcp-logo{position:absolute;left:17px;bottom:-34px;z-index:4;width:72px;height:72px;border-radius:14px;object-fit:contain;background:#FFFFFF;border:3px solid #FFFFFF;box-shadow:0 4px 14px rgba(0,0,0,.18)}",
+    ".pcp-pin .pcp-content{padding:16px 17px 20px}",
+    ".pcp-pin .pcp-content.pcp-logo-pad{padding-top:46px}",
+    ".pcp-pin h2{font-size:23px;line-height:1.15;margin:4px 0 6px;color:#333333}",
+    ".pcp-pin h2:focus{outline:none}",
+    ".pcp-pin h3{font-size:15.5px;margin:0 0 8px;color:#666666}",
+    ".pcp-pin .pcp-about{color:#666666;font-size:14px;line-height:1.5;margin:0}",
+    ".pcp-pin section{border-top:1px solid #DDDDDD;padding-top:14px;margin-top:16px}",
+    ".pcp-pin .pcp-eyebrow{font-size:11px;color:#29547E;font-weight:850;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}",
+    ".pcp-pin section p{font-size:14px;line-height:1.5;margin:0}",
+    ".pcp-pin .pcp-fact{margin-top:12px}",
+    ".pcp-pin .pcp-fact strong,.pcp-pin .pcp-fact span{display:block;font-size:13.5px}",
+    ".pcp-pin .pcp-fact span{color:#666666;margin-top:2px;line-height:1.45}",
+    ".pcp-pin .pcp-contact{display:block;padding:10px 0;color:#333333;text-decoration:none;border-bottom:1px solid #DDDDDD}",
+    ".pcp-pin .pcp-contact strong,.pcp-pin .pcp-contact span{display:block}",
+    ".pcp-pin .pcp-contact strong{font-size:14px}",
+    ".pcp-pin .pcp-contact span{font-size:11.5px;color:#29547E;margin-top:2px}",
+    ".pcp-pin .pcp-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}",
+    ".pcp-pin .pcp-actions.pcp-one{grid-template-columns:1fr}",
+    ".pcp-pin .pcp-btn{min-height:46px;display:flex;align-items:center;justify-content:center;border:1px solid #29547E;border-radius:6px;font-size:13px;font-weight:800;text-decoration:none;text-align:center;padding:6px 10px}",
+    ".pcp-pin .pcp-primary{background:#29547E;color:#FFFFFF}",
+    ".pcp-pin .pcp-secondary{background:#FFFFFF;color:#29547E}",
+    ".pcp-pin .pcp-socials{display:flex;gap:8px;margin:12px 0 0}",
+    ".pcp-pin .pcp-social{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid #DDDDDD;color:#29547E;text-decoration:none}",
+    ".pcp-pin .pcp-hours{margin:0 0 6px}",
+    ".pcp-pin .pcp-share{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:42px;margin-top:10px;border:0;background:transparent;color:#29547E;font:inherit;font-size:13px;font-weight:800;cursor:pointer}",
+    ".pcp-pin .pcp-shared{font-size:12px;color:#666666;text-align:center;margin:2px 0 0;word-break:break-all}",
+    ".pcp-pin .pcp-note{font-size:11px;color:#666666;line-height:1.4;margin:16px 0 0}",
+    ".pcp-page .pcp-back-end{display:flex;justify-content:center;margin:14px 0 0;padding-bottom:calc(8px + env(safe-area-inset-bottom))}",
+    ".pcp-page button:focus-visible,.pcp-page a:focus-visible{outline:2px solid #29547E;outline-offset:2px}",
+    "@media(min-width:800px){.pcp-topbar{margin:-16px 0 14px;padding:6px 0;border-bottom:0}" +
+      ".pcp-pin{margin:0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start;border:1px solid #DDDDDD;border-radius:12px}" +
+      ".pcp-pin .pcp-hero{position:sticky;top:64px;padding:16px}" +
+      ".pcp-pin .pcp-media{aspect-ratio:4/3;border-radius:10px}" +
+      ".pcp-pin .pcp-logo{left:30px;bottom:30px}" +
+      ".pcp-pin .pcp-content,.pcp-pin .pcp-content.pcp-logo-pad{padding:24px 26px 26px 10px}" +
+      ".pcp-pin h2{font-size:28px}}"
   ].join("");
 
   function esc(s) {
@@ -162,6 +174,7 @@
 
     root.className = "pcp";
     root.innerHTML =
+      '<div class="pcp-board">' +
       "<h1>Pins</h1>" +
       '<p class="pcp-intro">Specials, promotions, news, and offers from local businesses. New pins every Thursday. Tap a pin for details.</p>' +
       '<input class="pcp-search" type="search" placeholder="Search pins: pizza, haircut, candles…" aria-label="Search pins">' +
@@ -174,7 +187,9 @@
       '<footer class="pcp-foot">' +
         '<p class="pcp-disclaimer"><strong>About these pins.</strong> Pins are paid advertisements placed by local businesses. Each business is solely responsible for the content of its pin, including offers, pricing, availability, hours, and fulfillment. Promotions may change, sell out, or end early without notice, and may be subject to additional terms set by the business. PinCrd does not guarantee, endorse, or verify any offer, product, or service shown. Please confirm details directly with the business before visiting or purchasing.</p>' +
         '<p class="pcp-brand">PinCrd is a product of <a href="https://sixcrd.com/" target="_blank" rel="noopener">SixCrd</a>. &copy; ' + new Date().getFullYear() + ' SixCrd. <a href="https://sixcrdpolicies.sixcrd.com/" target="_blank" rel="noopener">Terms and Conditions</a></p>' +
-      '</footer>';
+      '</footer>' +
+      '</div>' +
+      '<div class="pcp-page" hidden></div>';
 
     var search = root.querySelector(".pcp-search");
     var catRow = root.querySelector(".pcp-cats");
@@ -183,6 +198,8 @@
     var count = root.querySelector(".pcp-count");
     var grid = root.querySelector(".pcp-grid");
     var empty = root.querySelector(".pcp-empty");
+    var board = root.querySelector(".pcp-board");
+    var page = root.querySelector(".pcp-page");
 
     function chip(label, value, pressed) {
       return '<button type="button" class="pcp-chip" data-v="' + esc(value) + '" aria-pressed="' + (pressed ? "true" : "false") + '">' + esc(label) + "</button>";
@@ -209,7 +226,7 @@
     }
 
     grid.innerHTML = pins.map(function (p, i) {
-      return '<button type="button" class="pcp-card" data-i="' + i + '" aria-haspopup="dialog">' +
+      return '<button type="button" class="pcp-card" data-i="' + i + '">' +
         media(p) +
         '<span class="pcp-body">' +
           tagsHTML(p) +
@@ -253,23 +270,6 @@
     });
     search.addEventListener("input", function () { state.q = search.value || ""; update(); });
 
-    var dialog = document.createElement("dialog");
-    dialog.className = "pcp-dialog";
-    dialog.setAttribute("aria-labelledby", "pcp-dialog-title");
-    document.body.appendChild(dialog);
-    var opener = null;
-
-    function closeDialog() {
-      if (dialog.close) dialog.close(); else dialog.removeAttribute("open");
-    }
-    dialog.addEventListener("close", function () {
-      document.documentElement.style.overflow = "";
-      if (opener) opener.focus();
-    });
-    dialog.addEventListener("click", function (e) {
-      if (e.target === dialog || e.target.closest(".pcp-close")) closeDialog();
-    });
-
     var SOCIAL = {
       instagram: { name: "Instagram", path: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>' },
       facebook: { name: "Facebook", path: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8a0 0 0 0 1 0 0z"/>' },
@@ -277,6 +277,7 @@
       youtube: { name: "YouTube", path: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>' },
       x: { name: "X", path: '<path d="M4 4l16 16M20 4L4 20"/>' }
     };
+    var BACK_ICON = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
     var SHARE_ICON = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
     var hoursLoaded = false;
 
@@ -323,8 +324,7 @@
       return BASE + "#pin=" + encodeURIComponent(p.id);
     }
 
-    function openPin(i, card) {
-      var p = pins[i];
+    function renderPin(p) {
       var contact = "";
       if (p.phone) {
         contact += '<a class="pcp-contact" href="tel:' + esc(String(p.phone).replace(/[^\d+]/g, "")) + '"><strong>' + esc(phoneText(p.phone)) + "</strong><span>Call business</span></a>";
@@ -337,33 +337,38 @@
         return '<a class="pcp-btn ' + (n === 0 ? "pcp-primary" : "pcp-secondary") + '" href="' + esc(tracked(b.url, p, slug(b.label) || ("button-" + (n + 1)))) + '" target="_blank" rel="noopener">' + esc(b.label || "Learn More") + "</a>";
       }).join("");
       var logo = p.logo ? '<img class="pcp-logo" src="' + esc(IMAGES + p.logo) + '" alt="" onerror="this.remove()">' : "";
-      var hero = '<div class="pcp-hero' + (p.logo ? " pcp-has-logo" : "") + '">' + media(p) + logo + "</div>";
+      var backBtn = function (cls) {
+        return '<button type="button" class="pcp-back ' + cls + '">' + BACK_ICON + "<span>Back to Pins</span></button>";
+      };
 
-      dialog.innerHTML =
-        '<button type="button" class="pcp-close" aria-label="Close"><span aria-hidden="true">×</span></button>' +
-        hero +
-        '<div class="pcp-content' + (p.logo ? " pcp-logo-pad" : "") + '">' +
-          tagsHTML(p) +
-          '<h2 id="pcp-dialog-title">' + esc(p.offer) + "</h2>" +
-          "<h3>" + esc(p.business) + "</h3>" +
-          (p.about ? '<p class="pcp-about">' + esc(p.about) + "</p>" : "") +
-          socialBlock(p) +
-          "<section>" +
-            '<p class="pcp-eyebrow">Details</p>' +
-            (p.details ? "<p>" + esc(p.details) + "</p>" : "") +
-            (p.howTo ? '<div class="pcp-fact"><strong>How to get it</strong><span>' + esc(p.howTo) + "</span></div>" : "") +
-            (p.finePrint ? '<div class="pcp-fact"><strong>Good to know</strong><span>' + esc(p.finePrint) + "</span></div>" : "") +
-            (p.end ? '<div class="pcp-fact"><strong>Running through</strong><span>' + esc(endsText(p.end).replace("Ends ", "")) + "</span></div>" : "") +
-          "</section>" +
-          (contact || p.hours ? '<section><p class="pcp-eyebrow">Contact</p>' + hoursBlock(p) + contact + "</section>" : "") +
-          (list.length ? '<div class="pcp-actions' + (list.length === 1 ? " pcp-one" : "") + '">' + buttons + "</div>" : "") +
-          '<button type="button" class="pcp-share">' + SHARE_ICON + "<span>Share this pin</span></button>" +
-          '<p class="pcp-shared" aria-live="polite"></p>' +
-          '<p class="pcp-note">Details and availability are managed by the participating business.</p>' +
-        "</div>";
+      page.innerHTML =
+        '<div class="pcp-topbar">' + backBtn("pcp-back-top") + "</div>" +
+        '<article class="pcp-pin" aria-labelledby="pcp-pin-title">' +
+          '<div class="pcp-hero">' + media(p) + logo + "</div>" +
+          '<div class="pcp-content' + (p.logo ? " pcp-logo-pad" : "") + '">' +
+            tagsHTML(p) +
+            '<h2 id="pcp-pin-title" tabindex="-1">' + esc(p.offer) + "</h2>" +
+            "<h3>" + esc(p.business) + "</h3>" +
+            (p.about ? '<p class="pcp-about">' + esc(p.about) + "</p>" : "") +
+            socialBlock(p) +
+            "<section>" +
+              '<p class="pcp-eyebrow">Details</p>' +
+              (p.details ? "<p>" + esc(p.details) + "</p>" : "") +
+              (p.howTo ? '<div class="pcp-fact"><strong>How to get it</strong><span>' + esc(p.howTo) + "</span></div>" : "") +
+              (p.finePrint ? '<div class="pcp-fact"><strong>Good to know</strong><span>' + esc(p.finePrint) + "</span></div>" : "") +
+              (p.end ? '<div class="pcp-fact"><strong>Running through</strong><span>' + esc(endsText(p.end).replace("Ends ", "")) + "</span></div>" : "") +
+            "</section>" +
+            (contact || p.hours ? '<section><p class="pcp-eyebrow">Contact</p>' + hoursBlock(p) + contact + "</section>" : "") +
+            (list.length ? '<div class="pcp-actions' + (list.length === 1 ? " pcp-one" : "") + '">' + buttons + "</div>" : "") +
+            '<button type="button" class="pcp-share">' + SHARE_ICON + "<span>Share this pin</span></button>" +
+            '<p class="pcp-shared" aria-live="polite"></p>' +
+            '<p class="pcp-note">Details and availability are managed by the participating business.</p>' +
+          "</div>" +
+        "</article>" +
+        '<div class="pcp-back-end">' + backBtn("pcp-back-bottom") + "</div>";
 
-      dialog.querySelector(".pcp-share").addEventListener("click", function () {
-        var url = shareLink(p), note = dialog.querySelector(".pcp-shared");
+      page.querySelector(".pcp-share").addEventListener("click", function () {
+        var url = shareLink(p), note = page.querySelector(".pcp-shared");
         var data = { title: p.offer + " at " + p.business, text: p.offer + " at " + p.business + " on PinCrd", url: url };
         if (navigator.share) {
           navigator.share(data).catch(function () {});
@@ -373,25 +378,90 @@
           note.textContent = url;
         }
       });
-
-      opener = card;
-      document.documentElement.style.overflow = "hidden";
-      if (dialog.showModal) dialog.showModal(); else dialog.setAttribute("open", "");
-      var closeBtn = dialog.querySelector(".pcp-close");
-      if (closeBtn) closeBtn.focus();
-      dialog.scrollTop = 0;
     }
+
+    /* Page routing: a pin opens as its own page in the widget. The browser or phone back
+       button returns to the board with filters and scroll position kept. On the widget's own
+       web address the link also carries #pin=, so shared links open straight to that pin. */
+    var canHash = /^https?:$/.test(window.location.protocol);
+    try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+    var baseTitle = document.title;
+    var boardY = 0, lastCard = null, fromBoard = false, current = null;
+
+    function pinIndex(id) {
+      for (var k = 0; k < pins.length; k++) { if (pins[k].id === id) return k; }
+      return -1;
+    }
+
+    function hashPin() {
+      var m = /#pin=([^&]+)/.exec(window.location.hash || "");
+      return m ? decodeURIComponent(m[1]) : "";
+    }
+
+    function cleanURL() {
+      return window.location.pathname + window.location.search;
+    }
+
+    function showPage(i) {
+      current = pins[i].id;
+      renderPin(pins[i]);
+      board.hidden = true;
+      page.hidden = false;
+      if (canHash) document.title = pins[i].offer + " | PinCrd";
+      window.scrollTo(0, 0);
+      var h = page.querySelector("#pcp-pin-title");
+      if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+    }
+
+    function showBoard() {
+      current = null;
+      page.hidden = true;
+      page.innerHTML = "";
+      board.hidden = false;
+      if (canHash) document.title = baseTitle;
+      window.scrollTo(0, boardY);
+      if (window.requestAnimationFrame) requestAnimationFrame(function () { window.scrollTo(0, boardY); });
+      if (lastCard) { try { lastCard.focus({ preventScroll: true }); } catch (e) { lastCard.focus(); } }
+    }
+
+    function openPin(i, card) {
+      boardY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      lastCard = card;
+      fromBoard = true;
+      try { history.pushState({ pcp: pins[i].id }, "", canHash ? "#pin=" + encodeURIComponent(pins[i].id) : undefined); } catch (e) {}
+      showPage(i);
+    }
+
+    function goBack() {
+      if (fromBoard && history.state && history.state.pcp) { history.back(); return; }
+      fromBoard = false;
+      try { history.replaceState({}, "", canHash ? cleanURL() : undefined); } catch (e) {}
+      showBoard();
+    }
+
+    window.addEventListener("popstate", function (e) {
+      var id = (e.state && e.state.pcp) || (canHash ? hashPin() : "");
+      var i = id ? pinIndex(id) : -1;
+      if (i > -1) { if (current !== id) showPage(i); }
+      else if (current) { fromBoard = false; showBoard(); }
+    });
+
+    page.addEventListener("click", function (e) {
+      if (e.target.closest(".pcp-back")) goBack();
+    });
 
     grid.addEventListener("click", function (e) {
       var c = e.target.closest(".pcp-card"); if (!c) return;
       openPin(parseInt(c.getAttribute("data-i"), 10), c);
     });
 
-    var m = /#pin=([^&]+)/.exec(window.location.hash || "");
-    if (m) {
-      var want = decodeURIComponent(m[1]);
-      for (var k = 0; k < pins.length; k++) {
-        if (pins[k].id === want) { openPin(k, cards[k]); break; }
+    var wanted = canHash ? hashPin() : "";
+    if (wanted) {
+      var w = pinIndex(wanted);
+      if (w > -1) {
+        lastCard = cards[w];
+        try { history.replaceState({ pcp: wanted }, ""); } catch (e) {}
+        showPage(w);
       }
     }
 
