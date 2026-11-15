@@ -91,7 +91,7 @@
 
   function render(root, b) {
     var contact = "";
-    var contactEmail = b.contactEmail || "douglas@sixcrd.com";
+    var contactEmail = b.contactEmail || "support@sixcrd.com";
 
     if (!b.expires && b.created) b.expires = addDays(b.created, 1);
     if (b.expires && todayLV() > b.expires) {
