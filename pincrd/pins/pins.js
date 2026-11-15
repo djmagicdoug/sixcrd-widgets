@@ -23,7 +23,7 @@
   var CSS = [
     ".pcp,.pcp *{box-sizing:border-box}",
     ".pcp [hidden],.pcp-dialog [hidden]{display:none !important}",
-    ".pcp{max-width:560px;margin:0 auto;padding:16px 14px 28px;color:#333333;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;text-align:left}",
+    ".pcp{max-width:1200px;margin:0 auto;padding:16px 14px 28px;color:#333333;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;text-align:left}",
     ".pcp h1{font-size:24px;margin:0 0 4px;color:#333333}",
     ".pcp .pcp-intro{font-size:13.5px;line-height:1.45;color:#666666;margin:0 0 14px}",
     ".pcp .pcp-search{width:100%;min-height:44px;border:1px solid #DDDDDD;border-radius:8px;background:#F1F1F1;padding:10px 12px;font-size:15px;color:#333333}",
@@ -37,6 +37,7 @@
     ".pcp .pcp-chip:focus-visible,.pcp .pcp-card:focus-visible,.pcp-dialog button:focus-visible,.pcp-dialog a:focus-visible{outline:2px solid #29547E;outline-offset:2px}",
     ".pcp .pcp-count{font-size:12px;color:#666666;margin:12px 0 10px}",
     ".pcp .pcp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}",
+    "@media(min-width:700px){.pcp .pcp-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}.pcp .pcp-search{max-width:560px}}",
     "@media(max-width:350px){.pcp .pcp-grid{grid-template-columns:1fr}}",
     ".pcp .pcp-card{display:flex;flex-direction:column;padding:0;overflow:hidden;text-align:left;border:1px solid #DDDDDD;border-radius:10px;background:#FFFFFF;color:inherit;cursor:pointer;font-family:inherit;width:100%}",
     ".pcp-media{position:relative;display:block;width:100%;aspect-ratio:4/3;background:#F1F1F1;overflow:hidden}",
