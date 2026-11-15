@@ -137,7 +137,7 @@
             guide("What's happening", b.detailsExample || "A sentence or two about your special, new item, or event, and when it runs.") +
             '<div class="pcv-fact"><strong>How to get it</strong>' + guide("Tell customers what to do", "Example: Just stop in, book online, or order ahead.") + "</div>" +
             '<div class="pcv-fact"><strong>Good to know</strong>' + guide("Any details or limits", "Example: Weekends only, while supplies last.") + "</div>" +
-            '<div class="pcv-fact"><strong>Running through</strong>' + guide("Your end date", "Pins run up to 10 days, Thursday to the following Saturday, or end sooner if you like.") + "</div>" +
+            '<div class="pcv-fact"><strong>Running through</strong>' + guide("Your end date", "Pins run 7 days, Thursday through Wednesday, or end sooner if you like.") + "</div>" +
           "</section>" +
           (contact ? '<section><p class="pcv-eyebrow">Contact</p>' + contact + "</section>" : "") +
           '<div class="pcv-actions"><span class="pcv-btn">Your button<br>(Book, Order, Menu)</span><span class="pcv-btn">Second button<br>(optional)</span></div>' +
