@@ -312,8 +312,7 @@
     }
 
     function shareLink(p) {
-      var href = window.location.href.replace(/#.*$/, "");
-      return href + "#pin=" + encodeURIComponent(p.id);
+      return BASE + "#pin=" + encodeURIComponent(p.id);
     }
 
     function openPin(i, card) {
