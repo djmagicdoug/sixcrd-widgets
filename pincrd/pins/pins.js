@@ -173,7 +173,7 @@
       '<p class="pcp-empty" hidden>No pins match right now. Try another search or check back Thursday.</p>' +
       '<footer class="pcp-foot">' +
         '<p class="pcp-disclaimer"><strong>About these pins.</strong> Pins are paid advertisements placed by local businesses. Each business is solely responsible for the content of its pin, including offers, pricing, availability, hours, and fulfillment. Promotions may change, sell out, or end early without notice, and may be subject to additional terms set by the business. PinCrd does not guarantee, endorse, or verify any offer, product, or service shown. Please confirm details directly with the business before visiting or purchasing.</p>' +
-        '<p class="pcp-brand">PinCrd is a product of <a href="https://sixcrd.com/" target="_blank" rel="noopener">SixCrd</a>. &copy; ' + new Date().getFullYear() + ' SixCrd. <a href="https://sixcrd.com/terms" target="_blank" rel="noopener">Terms and Conditions</a></p>' +
+        '<p class="pcp-brand">PinCrd is a product of <a href="https://sixcrd.com/" target="_blank" rel="noopener">SixCrd</a>. &copy; ' + new Date().getFullYear() + ' SixCrd. <a href="https://sixcrdpolicies.sixcrd.com/" target="_blank" rel="noopener">Terms and Conditions</a></p>' +
       '</footer>';
 
     var search = root.querySelector(".pcp-search");
