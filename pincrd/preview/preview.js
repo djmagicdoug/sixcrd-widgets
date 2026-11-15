@@ -70,6 +70,21 @@
     return d.length === 10 ? "(" + d.slice(0, 3) + ") " + d.slice(3, 6) + "-" + d.slice(6) : p;
   }
 
+  function addDays(ymd, n) {
+    var d = new Date(ymd + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
+
+  function expiryText(expires) {
+    var today = todayLV();
+    if (expires === today) return "This sample is available until midnight tonight.";
+    if (expires === addDays(today, 1)) return "This sample is available until midnight tomorrow.";
+    var d = new Date(expires + "T12:00:00Z");
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return "This sample is available until midnight " + days[d.getUTCDay()] + ", " + months[d.getUTCMonth()] + " " + d.getUTCDate() + ".";
+  }
+
   function guide(title, example) {
     return '<span class="pcv-guide"><b>' + esc(title) + "</b><span>" + esc(example) + "</span></span>";
   }
@@ -78,6 +93,7 @@
     var contact = "";
     var contactEmail = b.contactEmail || "douglas@sixcrd.com";
 
+    if (!b.expires && b.created) b.expires = addDays(b.created, 1);
     if (b.expires && todayLV() > b.expires) {
       root.innerHTML = '<div class="pcv-ended" role="status"><strong>This sample has ended.</strong><br>Want to see your pin on PinCrd? <a href="mailto:' + esc(contactEmail) + '">Reach out to Douglas</a>.</div>';
       return;
@@ -105,7 +121,7 @@
 
     root.className = "pcv";
     root.innerHTML =
-      '<div class="pcv-banner" role="note"><strong>Sample pin for ' + esc(b.business) + "</strong>Not live. This is a private preview of how your pin could look on PinCrd. The dashed boxes show where your own offer, special, or announcement goes.</div>" +
+      '<div class="pcv-banner" role="note"><strong>Sample pin for ' + esc(b.business) + "</strong>Not live. This is a private preview of how your pin could look on PinCrd. The dashed boxes show where your own offer, special, or announcement goes." + (b.expires ? " " + esc(expiryText(b.expires)) : "") + "</div>" +
       '<article class="pcv-sheet" aria-label="Sample pin for ' + esc(b.business) + '">' +
         '<div class="pcv-hero"><span class="pcv-emoji" aria-hidden="true">' + esc(b.emoji || "📌") + "</span>" + photo + logo + "</div>" +
         '<div class="pcv-body' + (b.logo ? " pcv-pad" : "") + '">' +
@@ -127,8 +143,8 @@
           '<div class="pcv-actions"><span class="pcv-btn">Your button<br>(Book, Order, Menu)</span><span class="pcv-btn">Second button<br>(optional)</span></div>' +
         "</div>" +
       "</article>" +
-      '<div class="pcv-cta"><strong>Like how this looks?</strong>Send Douglas your offer or announcement and your pin can go live on Thursday.' +
-        '<br><a href="mailto:' + esc(contactEmail) + "?subject=" + esc(encodeURIComponent("My PinCrd pin: " + b.business)) + '">Email Douglas</a></div>' +
+      '<div class="pcv-cta"><strong>Want to see it with your real offer?</strong>Send your headline, what is happening, and how customers get it, and you will get this same sample back with your offer filled in. No commitment.' +
+        '<br><a href="' + esc(b.formUrl || ("mailto:" + contactEmail + "?subject=" + encodeURIComponent("Sample pin details: " + b.business) + "&body=Hi Douglas,%0D%0A%0D%0AHere are my details for a sample pin:%0D%0A%0D%0AHeadline:%0D%0AWhat's happening:%0D%0AHow customers get it:%0D%0AGood to know:%0D%0AEnd date:%0D%0A%0D%0AThanks,")) + '"' + (b.formUrl ? ' target="_blank" rel="noopener"' : "") + '>Send my offer details</a></div>' +
       '<p class="pcv-foot">PinCrd is a product of SixCrd.</p>';
   }
 
