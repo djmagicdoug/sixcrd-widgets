@@ -53,7 +53,11 @@
     ".pcp .pcp-ends{display:block;font-size:11px;margin-top:7px;color:#666666}",
     ".pcp .pcp-view{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#29547E;font-weight:800;margin-top:9px}",
     ".pcp .pcp-empty{padding:28px 0;text-align:center;color:#666666;font-size:13.5px}",
-    ".pcp .pcp-by{text-align:center;font-size:11px;color:#999999;margin:22px 0 0}",
+    ".pcp .pcp-foot{margin:28px 0 0;padding:16px 0 0;border-top:1px solid #DDDDDD}",
+    ".pcp .pcp-disclaimer{font-size:11.5px;line-height:1.5;color:#666666;margin:0 0 12px;max-width:760px}",
+    ".pcp .pcp-disclaimer strong{color:#333333}",
+    ".pcp .pcp-brand{font-size:11.5px;color:#666666;margin:0}",
+    ".pcp .pcp-brand a{color:#29547E;font-weight:700;text-decoration:underline;text-underline-offset:2px}",
     ".pcp-dialog{width:min(540px,calc(100% - 20px));max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0;border:0;border-radius:12px;box-shadow:0 16px 45px rgba(0,0,0,.25);color:#333333;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}",
     ".pcp-dialog::backdrop{background:rgba(30,32,33,.55)}",
     ".pcp-dialog .pcp-close{position:absolute;right:10px;top:10px;z-index:5;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.95);font-size:26px;line-height:1;cursor:pointer;color:#333333}",
@@ -167,7 +171,10 @@
       '<p class="pcp-count" aria-live="polite"></p>' +
       '<div class="pcp-grid"></div>' +
       '<p class="pcp-empty" hidden>No pins match right now. Try another search or check back Thursday.</p>' +
-      '<p class="pcp-by">PinCrd, presented by SixCrd</p>';
+      '<footer class="pcp-foot">' +
+        '<p class="pcp-disclaimer"><strong>About these pins.</strong> Pins are paid advertisements placed by local businesses. Each business is solely responsible for the content of its pin, including offers, pricing, availability, hours, and fulfillment. Promotions may change, sell out, or end early without notice, and may be subject to additional terms set by the business. PinCrd does not guarantee, endorse, or verify any offer, product, or service shown. Please confirm details directly with the business before visiting or purchasing.</p>' +
+        '<p class="pcp-brand">PinCrd is a product of <a href="https://sixcrd.com/" target="_blank" rel="noopener">SixCrd</a>. &copy; ' + new Date().getFullYear() + ' SixCrd. <a href="https://sixcrd.com/terms" target="_blank" rel="noopener">Terms and Conditions</a></p>' +
+      '</footer>';
 
     var search = root.querySelector(".pcp-search");
     var catRow = root.querySelector(".pcp-cats");
