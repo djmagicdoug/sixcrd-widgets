@@ -77,9 +77,9 @@
     ".pcp-dialog .pcp-btn{min-height:46px;display:flex;align-items:center;justify-content:center;border:1px solid #AA8962;border-radius:6px;font-size:13px;font-weight:800;text-decoration:none;text-align:center;padding:6px 10px}",
     ".pcp-dialog .pcp-primary{background:#AA8962;color:#fff}",
     ".pcp-dialog .pcp-secondary{background:#fff;color:#7d6343}",
-    ".pcp-dialog .pcp-bizrow{display:flex;align-items:center;gap:10px;margin:0 0 8px}",
-    ".pcp-dialog .pcp-bizrow h3{margin:0}",
-    ".pcp-dialog .pcp-logo{width:42px;height:42px;flex:0 0 42px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid #dedfdd}",
+    ".pcp-dialog .pcp-hero{position:relative}",
+    ".pcp-dialog .pcp-logo{position:absolute;left:17px;bottom:-34px;z-index:4;width:72px;height:72px;border-radius:14px;object-fit:contain;background:#fff;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.18)}",
+    ".pcp-dialog .pcp-content.pcp-logo-pad{padding-top:46px}",
     ".pcp-dialog .pcp-socials{display:flex;gap:8px;margin:12px 0 0}",
     ".pcp-dialog .pcp-social{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid #dedfdd;color:#7d6343;text-decoration:none}",
     ".pcp-dialog .pcp-hours{margin:0 0 6px}",
@@ -329,14 +329,15 @@
         return '<a class="pcp-btn ' + (n === 0 ? "pcp-primary" : "pcp-secondary") + '" href="' + esc(tracked(b.url, p, slug(b.label) || ("button-" + (n + 1)))) + '" target="_blank" rel="noopener">' + esc(b.label || "Learn More") + "</a>";
       }).join("");
       var logo = p.logo ? '<img class="pcp-logo" src="' + esc(IMAGES + p.logo) + '" alt="" onerror="this.remove()">' : "";
+      var hero = '<div class="pcp-hero' + (p.logo ? " pcp-has-logo" : "") + '">' + media(p) + logo + "</div>";
 
       dialog.innerHTML =
         '<button type="button" class="pcp-close" aria-label="Close"><span aria-hidden="true">×</span></button>' +
-        media(p) +
-        '<div class="pcp-content">' +
+        hero +
+        '<div class="pcp-content' + (p.logo ? " pcp-logo-pad" : "") + '">' +
           tagsHTML(p) +
           '<h2 id="pcp-dialog-title">' + esc(p.offer) + "</h2>" +
-          '<div class="pcp-bizrow">' + logo + "<h3>" + esc(p.business) + "</h3></div>" +
+          "<h3>" + esc(p.business) + "</h3>" +
           (p.about ? '<p class="pcp-about">' + esc(p.about) + "</p>" : "") +
           socialBlock(p) +
           "<section>" +

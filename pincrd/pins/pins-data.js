@@ -11,7 +11,7 @@ window.PINCRD_PINS = [
     finePrint: "One per customer per visit. Not valid with other offers.",
     category: "eat", sub: "Coffee & Bakery", area: "Southwest",
     tags: ["With Purchase", "Walk-Ins"],
-    image: "sunny-day-coffee.jpg", emoji: "☕",
+    image: "sunny-day-coffee.jpg", logo: "sunny-day-coffee-co-logo.png", emoji: "☕",
     phone: "7025550101", address: "6870 S Rainbow Blvd, Las Vegas, NV",
     website: "https://example.com/",
     social: { instagram: "https://instagram.com/" },
