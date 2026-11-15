@@ -13,7 +13,10 @@ window.PINCRD_PINS = [
     tags: ["With Purchase", "Walk-Ins"],
     image: "sunny-day-coffee.jpg", logo: "sunny-day-coffee-co-logo.png", emoji: "☕",
     phone: "7025550101", address: "6870 S Rainbow Blvd, Las Vegas, NV",
-    website: "https://example.com/",
+    buttons: [
+      { label: "Order Ahead", url: "https://example.com/order" },
+      { label: "Website", url: "https://example.com/" }
+    ],
     social: { instagram: "https://instagram.com/" },
     hours: { mon: "6:30-15:00", tue: "6:30-15:00", wed: "6:30-15:00", thu: "6:30-15:00", fri: "6:30-15:00", sat: "7:00-14:00", sun: "7:00-14:00" },
     start: "2026-11-12", end: "2026-11-21"
