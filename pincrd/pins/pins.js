@@ -77,6 +77,14 @@
     ".pcp-dialog .pcp-btn{min-height:46px;display:flex;align-items:center;justify-content:center;border:1px solid #AA8962;border-radius:6px;font-size:13px;font-weight:800;text-decoration:none;text-align:center;padding:6px 10px}",
     ".pcp-dialog .pcp-primary{background:#AA8962;color:#fff}",
     ".pcp-dialog .pcp-secondary{background:#fff;color:#7d6343}",
+    ".pcp-dialog .pcp-bizrow{display:flex;align-items:center;gap:10px;margin:0 0 8px}",
+    ".pcp-dialog .pcp-bizrow h3{margin:0}",
+    ".pcp-dialog .pcp-logo{width:42px;height:42px;flex:0 0 42px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid #dedfdd}",
+    ".pcp-dialog .pcp-socials{display:flex;gap:8px;margin:12px 0 0}",
+    ".pcp-dialog .pcp-social{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid #dedfdd;color:#7d6343;text-decoration:none}",
+    ".pcp-dialog .pcp-hours{margin:0 0 6px}",
+    ".pcp-dialog .pcp-share{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:42px;margin-top:10px;border:0;background:transparent;color:#7d6343;font:inherit;font-size:13px;font-weight:800;cursor:pointer}",
+    ".pcp-dialog .pcp-shared{font-size:12px;color:#5e6466;text-align:center;margin:2px 0 0;word-break:break-all}",
     ".pcp-dialog .pcp-note{font-size:11px;color:#6f7475;line-height:1.4;margin:16px 0 0;padding-bottom:calc(8px + env(safe-area-inset-bottom))}"
   ].join("");
 
@@ -254,6 +262,60 @@
       if (e.target === dialog || e.target.closest(".pcp-close")) closeDialog();
     });
 
+    var SOCIAL = {
+      instagram: { name: "Instagram", path: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>' },
+      facebook: { name: "Facebook", path: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8a0 0 0 0 1 0 0z"/>' },
+      tiktok: { name: "TikTok", path: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.5 2.5 4.5 5 4.5"/>' },
+      youtube: { name: "YouTube", path: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>' },
+      x: { name: "X", path: '<path d="M4 4l16 16M20 4L4 20"/>' }
+    };
+    var SHARE_ICON = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+    var hoursLoaded = false;
+
+    function slug(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+
+    function pinButtons(p) {
+      var list = [];
+      (p.buttons || []).forEach(function (b) { if (b && b.url) list.push(b); });
+      if (!list.length) {
+        if (p.action && p.action.url) list.push(p.action);
+        if (p.website) list.push({ label: "Website", url: p.website });
+      }
+      return list.slice(0, 2);
+    }
+
+    function hoursBlock(p) {
+      if (!p.hours) return "";
+      var attrs = "";
+      ["sun", "mon", "tue", "wed", "thu", "fri", "sat"].forEach(function (k) {
+        if (p.hours[k]) attrs += " data-" + k + '="' + esc(p.hours[k]) + '"';
+      });
+      if (!hoursLoaded) {
+        hoursLoaded = true;
+        var s = document.createElement("script");
+        s.src = BASE.replace(/pincrd\/pins\/$/, "shared/open-close/status.js");
+        s.defer = true;
+        (document.head || document.documentElement).appendChild(s);
+      }
+      return '<div class="pcp-hours"><div class="sixcrd-hours"' + attrs + ">Hours</div></div>";
+    }
+
+    function socialBlock(p) {
+      if (!p.social) return "";
+      var out = "";
+      Object.keys(SOCIAL).forEach(function (k) {
+        if (!p.social[k]) return;
+        out += '<a class="pcp-social" href="' + esc(p.social[k]) + '" target="_blank" rel="noopener" aria-label="' + esc(p.business + " on " + SOCIAL[k].name) + '">' +
+          '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + SOCIAL[k].path + "</svg></a>";
+      });
+      return out ? '<div class="pcp-socials">' + out + "</div>" : "";
+    }
+
+    function shareLink(p) {
+      var href = window.location.href.replace(/#.*$/, "");
+      return href + "#pin=" + encodeURIComponent(p.id);
+    }
+
     function openPin(i, card) {
       var p = pins[i];
       var contact = "";
@@ -263,14 +325,11 @@
       if (p.address) {
         contact += '<a class="pcp-contact" href="https://www.google.com/maps/dir/?api=1&amp;destination=' + esc(encodeURIComponent(p.address)) + '" target="_blank" rel="noopener"><strong>' + esc(p.address) + "</strong><span>Get directions</span></a>";
       }
-      var buttons = "";
-      if (p.action && p.action.url) {
-        buttons += '<a class="pcp-btn pcp-primary" href="' + esc(tracked(p.action.url, p, "deal")) + '" target="_blank" rel="noopener">' + esc(p.action.label || "Get the Deal") + "</a>";
-      }
-      if (p.website) {
-        buttons += '<a class="pcp-btn ' + (buttons ? "pcp-secondary" : "pcp-primary") + '" href="' + esc(tracked(p.website, p, "website")) + '" target="_blank" rel="noopener">Website</a>';
-      }
-      var count = (p.action && p.action.url ? 1 : 0) + (p.website ? 1 : 0);
+      var list = pinButtons(p);
+      var buttons = list.map(function (b, n) {
+        return '<a class="pcp-btn ' + (n === 0 ? "pcp-primary" : "pcp-secondary") + '" href="' + esc(tracked(b.url, p, slug(b.label) || ("button-" + (n + 1)))) + '" target="_blank" rel="noopener">' + esc(b.label || "Learn More") + "</a>";
+      }).join("");
+      var logo = p.logo ? '<img class="pcp-logo" src="' + esc(IMAGES + p.logo) + '" alt="" onerror="this.remove()">' : "";
 
       dialog.innerHTML =
         '<button type="button" class="pcp-close" aria-label="Close"><span aria-hidden="true">×</span></button>' +
@@ -278,19 +337,34 @@
         '<div class="pcp-content">' +
           tagsHTML(p) +
           '<h2 id="pcp-dialog-title">' + esc(p.offer) + "</h2>" +
-          "<h3>" + esc(p.business) + "</h3>" +
+          '<div class="pcp-bizrow">' + logo + "<h3>" + esc(p.business) + "</h3></div>" +
           (p.about ? '<p class="pcp-about">' + esc(p.about) + "</p>" : "") +
+          socialBlock(p) +
           "<section>" +
             '<p class="pcp-eyebrow">Details</p>' +
             (p.details ? "<p>" + esc(p.details) + "</p>" : "") +
             (p.howTo ? '<div class="pcp-fact"><strong>How to get it</strong><span>' + esc(p.howTo) + "</span></div>" : "") +
             (p.finePrint ? '<div class="pcp-fact"><strong>Good to know</strong><span>' + esc(p.finePrint) + "</span></div>" : "") +
-            (p.end ? '<div class="pcp-fact"><strong>Valid through</strong><span>' + esc(endsText(p.end).replace("Ends ", "")) + "</span></div>" : "") +
+            (p.end ? '<div class="pcp-fact"><strong>Running through</strong><span>' + esc(endsText(p.end).replace("Ends ", "")) + "</span></div>" : "") +
           "</section>" +
-          (contact ? '<section><p class="pcp-eyebrow">Contact</p>' + contact + "</section>" : "") +
-          (count ? '<div class="pcp-actions' + (count === 1 ? " pcp-one" : "") + '">' + buttons + "</div>" : "") +
-          '<p class="pcp-note">Offer terms and fulfillment are managed by the participating business.</p>' +
+          (contact || p.hours ? '<section><p class="pcp-eyebrow">Contact</p>' + hoursBlock(p) + contact + "</section>" : "") +
+          (list.length ? '<div class="pcp-actions' + (list.length === 1 ? " pcp-one" : "") + '">' + buttons + "</div>" : "") +
+          '<button type="button" class="pcp-share">' + SHARE_ICON + "<span>Share this pin</span></button>" +
+          '<p class="pcp-shared" aria-live="polite"></p>' +
+          '<p class="pcp-note">Details and availability are managed by the participating business.</p>' +
         "</div>";
+
+      dialog.querySelector(".pcp-share").addEventListener("click", function () {
+        var url = shareLink(p), note = dialog.querySelector(".pcp-shared");
+        var data = { title: p.offer + " at " + p.business, text: p.offer + " at " + p.business + " on PinCrd", url: url };
+        if (navigator.share) {
+          navigator.share(data).catch(function () {});
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { note.textContent = "Link copied"; }, function () { note.textContent = url; });
+        } else {
+          note.textContent = url;
+        }
+      });
 
       opener = card;
       document.documentElement.style.overflow = "hidden";
@@ -304,6 +378,14 @@
       var c = e.target.closest(".pcp-card"); if (!c) return;
       openPin(parseInt(c.getAttribute("data-i"), 10), c);
     });
+
+    var m = /#pin=([^&]+)/.exec(window.location.hash || "");
+    if (m) {
+      var want = decodeURIComponent(m[1]);
+      for (var k = 0; k < pins.length; k++) {
+        if (pins[k].id === want) { openPin(k, cards[k]); break; }
+      }
+    }
 
     drawCats(); drawSubs(); drawAreas(); update();
   }

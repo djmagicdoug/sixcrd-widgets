@@ -1,4 +1,4 @@
-/* PinCrd pins list. One entry per pin. Dates are Las Vegas time; a pin shows from its start date through 11:59 PM on its end date. */
+/* PinCrd pins list. Optional per pin: logo (file in pincrd/images), buttons (up to two, label and url), social (instagram, facebook, tiktok, youtube, x), hours (sun to sat, 24 hour time). One entry per pin. Dates are Las Vegas time; a pin shows from its start date through 11:59 PM on its end date. */
 window.PINCRD_PINS = [
   {
     id: "sunny-day-coffee-latte",
@@ -7,13 +7,15 @@ window.PINCRD_PINS = [
     teaser: "Weekday mornings, 7 to 11 AM",
     about: "Neighborhood coffee shop serving espresso drinks, drip coffee, and fresh pastries.",
     details: "Valid Monday through Friday, 7 to 11 AM. Dine in or to go.",
-    howTo: "Show this pin at the register.",
+    howTo: "Just stop in and order at the counter.",
     finePrint: "One per customer per visit. Not valid with other offers.",
     category: "eat", sub: "Coffee & Bakery", area: "Southwest",
     tags: ["With Purchase", "Walk-Ins"],
     image: "sunny-day-coffee.jpg", emoji: "☕",
     phone: "7025550101", address: "6870 S Rainbow Blvd, Las Vegas, NV",
     website: "https://example.com/",
+    social: { instagram: "https://instagram.com/" },
+    hours: { mon: "6:30-15:00", tue: "6:30-15:00", wed: "6:30-15:00", thu: "6:30-15:00", fri: "6:30-15:00", sat: "7:00-14:00", sun: "7:00-14:00" },
     start: "2026-11-12", end: "2026-11-21"
   },
   {
@@ -23,13 +25,18 @@ window.PINCRD_PINS = [
     teaser: "Dine in or carryout",
     about: "Casual pizzeria serving New York style pizza by the slice or the whole pie.",
     details: "20% off any large pizza, any toppings.",
-    howTo: "Mention PinCrd when ordering.",
+    howTo: "Order in store or online.",
     finePrint: "Dine in or carryout only. Not valid on delivery apps.",
     category: "eat", sub: "Pizza", area: "Southwest",
     tags: ["Walk-Ins", "Limited Time"],
     image: "slice-house-pizza.jpg", emoji: "🍕",
     phone: "7025550102", address: "7345 S Durango Dr, Las Vegas, NV",
-    action: { label: "Order Online", url: "https://example.com/order" },
+    buttons: [
+      { label: "Order Online", url: "https://example.com/order" },
+      { label: "See the Menu", url: "https://example.com/menu" }
+    ],
+    social: { instagram: "https://instagram.com/", facebook: "https://facebook.com/" },
+    hours: { mon: "11:00-22:00", tue: "11:00-22:00", wed: "11:00-22:00", thu: "11:00-22:00", fri: "11:00-00:00", sat: "11:00-00:00", sun: "12:00-21:00" },
     start: "2026-11-12", end: "2026-11-21"
   },
   {
@@ -39,7 +46,7 @@ window.PINCRD_PINS = [
     teaser: "Order 48 hours ahead",
     about: "Bakery specializing in custom cakes, cupcakes, and daily fresh pastries.",
     details: "10% off any custom cake order for birthdays, showers, and holidays.",
-    howTo: "Mention PinCrd when you place your order.",
+    howTo: "Call or stop in to place your order.",
     finePrint: "Orders must be placed at least 48 hours in advance.",
     category: "eat", sub: "Coffee & Bakery", area: "Southwest",
     tags: ["By Appt"],
@@ -55,7 +62,7 @@ window.PINCRD_PINS = [
     teaser: "All smoothies, all week",
     about: "Juice and smoothie bar with fresh pressed juices and daily smoothie specials.",
     details: "Order any smoothie and get the next size up free.",
-    howTo: "Show this pin at checkout.",
+    howTo: "Order any smoothie at the counter.",
     finePrint: "One free upgrade per customer per visit.",
     category: "eat", sub: "Juice & Smoothies", area: "Southwest",
     tags: ["Free With Purchase", "Walk-Ins"],
@@ -70,7 +77,7 @@ window.PINCRD_PINS = [
     teaser: "Tuesday only, while it lasts",
     about: "Family run taqueria with handmade tortillas and slow cooked meats.",
     details: "Street tacos for $1 each, all day Tuesday.",
-    howTo: "Order at the counter; no code needed.",
+    howTo: "Order at the counter.",
     finePrint: "Limit 10 tacos per customer. Dine in only.",
     category: "eat", sub: "Mexican", area: "Southwest",
     tags: ["Walk-Ins", "Limited Time"],
@@ -85,7 +92,7 @@ window.PINCRD_PINS = [
     teaser: "Holiday scents just landed",
     about: "Boutique candle shop with hand poured soy candles in seasonal scents.",
     details: "Buy any two candles and get a third free.",
-    howTo: "Show this pin at checkout.",
+    howTo: "Stop in and pick your three.",
     finePrint: "Free candle is the lowest priced of the three. In store only, while supplies last.",
     category: "retail", sub: "Gifts & Home", area: "Southwest",
     tags: ["Free With Purchase", "Limited Time"],
@@ -101,7 +108,7 @@ window.PINCRD_PINS = [
     teaser: "Regular priced hats",
     about: "Vintage and vintage style hat shop for men and women.",
     details: "15% off every regular priced hat in the store.",
-    howTo: "Show this pin at checkout.",
+    howTo: "Stop in; the sale is on in store.",
     finePrint: "Regular priced hats only. In store only.",
     category: "retail", sub: "Clothing & Accessories", area: "Downtown",
     tags: ["Walk-Ins"],
@@ -116,7 +123,7 @@ window.PINCRD_PINS = [
     teaser: "Dogs and cats welcome",
     about: "Neighborhood pet supply store with self wash stations and grooming.",
     details: "Book any bath and get a nail trim at no charge.",
-    howTo: "Mention PinCrd when booking.",
+    howTo: "Book a bath online or by phone.",
     finePrint: "Appointment required. One per pet.",
     category: "retail", sub: "Pets", area: "Henderson Green Valley",
     tags: ["Free With Purchase", "By Appt"],
@@ -132,7 +139,7 @@ window.PINCRD_PINS = [
     teaser: "We come to you",
     about: "Independent mobile mechanic serving the southwest valley. Brakes, batteries, and tune ups done in your driveway.",
     details: "$20 off front or rear brake service, parts and labor.",
-    howTo: "Call or text to book and mention PinCrd.",
+    howTo: "Call or text to book.",
     finePrint: "Southwest valley service area. Appointment required.",
     category: "services", sub: "Auto", area: "Southwest",
     tags: ["By Appt"],
@@ -147,13 +154,18 @@ window.PINCRD_PINS = [
     teaser: "New clients only",
     about: "Hair studio specializing in blowouts, color, and silk press.",
     details: "$10 off a blowout for first time clients.",
-    howTo: "Book online and enter PINCRD in the notes.",
+    howTo: "Book online as a new client.",
     finePrint: "New clients only. Appointment required.",
     category: "services", sub: "Hair & Beauty", area: "Southwest",
     tags: ["By Appt", "Limited Time"],
     image: "glow-up-studio.webp", emoji: "💇",
     phone: "7025550302", address: "3655 S Durango Dr, Las Vegas, NV",
-    action: { label: "Book Now", url: "https://example.com/book" },
+    buttons: [
+      { label: "Book Now", url: "https://example.com/book" },
+      { label: "See Our Work", url: "https://example.com/gallery" }
+    ],
+    social: { instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" },
+    hours: { tue: "10:00-19:00", wed: "10:00-19:00", thu: "10:00-19:00", fri: "10:00-19:00", sat: "9:00-17:00" },
     start: "2026-11-12", end: "2026-11-21"
   },
   {
